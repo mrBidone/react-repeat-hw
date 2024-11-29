@@ -1,0 +1,30 @@
+.profileListItem {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 20px;
+  border: 1px solid white;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.profileListItem.isOnline {
+  border-color: green;
+}
+
+.avatarThumb {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+}
+
+/* test класс через дефис */
+.avatar-image {
+  width: 80px;
+}
+
+.isVerificatedImage {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
