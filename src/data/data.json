@@ -1,0 +1,152 @@
+[
+  {
+    "key": "user1",
+    "name": "John Smith",
+    "tag": "johnny_s",
+    "location": "New York, USA",
+    "image": "https://example.com/images/john.jpg",
+    "stats": {
+      "followers": 1200,
+      "posts": 45,
+      "likes": 3500
+    },
+    "status": "Online",
+    "isVerified": true,
+    "gender": "Male"
+  },
+  {
+    "key": "user2",
+    "name": "Emily Johnson",
+    "tag": "emily.j",
+    "location": "London, UK",
+    "image": "https://example.com/images/emily.jpg",
+    "stats": {
+      "followers": 2500,
+      "posts": 78,
+      "likes": 5400
+    },
+    "status": "Offline",
+    "isVerified": false,
+    "gender": "Female"
+  },
+  {
+    "key": "user3",
+    "name": "Carlos Garcia",
+    "tag": "carlos_gar",
+    "location": "Madrid, Spain",
+    "image": "https://example.com/images/carlos.jpg",
+    "stats": {
+      "followers": 980,
+      "posts": 33,
+      "likes": 2900
+    },
+    "status": "Online",
+    "isVerified": false,
+    "gender": "Male"
+  },
+  {
+    "key": "user4",
+    "name": "Aiko Tanaka",
+    "tag": "aiko_t",
+    "location": "Tokyo, Japan",
+    "image": "https://example.com/images/aiko.jpg",
+    "stats": {
+      "followers": 3400,
+      "posts": 102,
+      "likes": 8700
+    },
+    "status": "Offline",
+    "isVerified": true,
+    "gender": "Female"
+  },
+  {
+    "key": "user5",
+    "name": "Liam Brown",
+    "tag": "liam_b",
+    "location": "Sydney, Australia",
+    "image": "https://example.com/images/liam.jpg",
+    "stats": {
+      "followers": 1500,
+      "posts": 58,
+      "likes": 4200
+    },
+    "status": "Online",
+    "isVerified": false,
+    "gender": "Male"
+  },
+  {
+    "key": "user6",
+    "name": "Amara Singh",
+    "tag": "amara_singh",
+    "location": "Mumbai, India",
+    "image": "https://example.com/images/amara.jpg",
+    "stats": {
+      "followers": 3100,
+      "posts": 95,
+      "likes": 8900
+    },
+    "status": "Offline",
+    "isVerified": true,
+    "gender": "Female"
+  },
+  {
+    "key": "user7",
+    "name": "Pierre Dubois",
+    "tag": "pierre.d",
+    "location": "Paris, France",
+    "image": "https://example.com/images/pierre.jpg",
+    "stats": {
+      "followers": 1900,
+      "posts": 67,
+      "likes": 5100
+    },
+    "status": "Online",
+    "isVerified": false,
+    "gender": "Male"
+  },
+  {
+    "key": "user8",
+    "name": "Nia Adams",
+    "tag": "nia_a",
+    "location": "Cape Town, South Africa",
+    "image": "https://example.com/images/nia.jpg",
+    "stats": {
+      "followers": 2200,
+      "posts": 74,
+      "likes": 6800
+    },
+    "status": "Offline",
+    "isVerified": true,
+    "gender": "Female"
+  },
+  {
+    "key": "user9",
+    "name": "Mateo Rossi",
+    "tag": "mateo_rossi",
+    "location": "Rome, Italy",
+    "image": "https://example.com/images/mateo.jpg",
+    "stats": {
+      "followers": 1300,
+      "posts": 46,
+      "likes": 3500
+    },
+    "status": "Online",
+    "isVerified": true,
+    "gender": "Male"
+  },
+  {
+    "key": "user10",
+    "name": "Sophia Müller",
+    "tag": "sophia_m",
+    "location": "Berlin, Germany",
+    "image": "https://example.com/images/sophia.jpg",
+    "stats": {
+      "followers": 2800,
+      "posts": 89,
+      "likes": 7200
+    },
+    "status": "Offline",
+    "isVerified": false,
+    "gender": "Female"
+  }
+]
