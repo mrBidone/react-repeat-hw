@@ -1,19 +1,27 @@
 import "./App.css";
+
+import article from "./data/article.json";
 import Section from "./components/Section/Section";
-import ProfileList from "./components/ProfileList/ProfileList";
-import usersFromData from "./data/data.json";
+import Container from "./components/Container/Container";
+import Heading from "./components/Heading/Heading";
+import BlogCard from "./components/BlogCard/BlogCard";
 
 const App = () => {
   return (
     <>
-      <Section title="Contact List">
-        <ProfileList userList={usersFromData} />
-      </Section>
-      <Section title="">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. In, eligendi!
-        </p>
-        <button>Lorem2</button>
+      <Section>
+        <Container>
+          <Heading title="Task 1 Blog Card" bottom />
+          <BlogCard
+            poster={article.poster}
+            tag={article.tag}
+            title={article.title}
+            description={article.description}
+            userName={article.name}
+            avatar={article.avatar}
+            postedAt={article.postedAt}
+          />
+        </Container>
       </Section>
     </>
   );
