@@ -1,30 +1,76 @@
-.profileListItem {
+.userThumb {
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: 500px;
+  border: 3px solid black;
+  border-radius: 15px;
+  background-color: rgb(250, 250, 250);
+  margin-bottom: 20px;
+}
+
+.userImg {
+  border-radius: 50%;
+  background-color: rgb(42, 42, 42);
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.userContainer {
   display: flex;
   flex-direction: column;
-  list-style: none;
+  align-items: center;
   padding: 20px;
-  border: 1px solid white;
-  margin-bottom: 10px;
-  border-radius: 10px;
 }
 
-.profileListItem.isOnline {
-  border-color: green;
+.userName {
+  font-weight: 600;
+  font-size: 40px;
+  color: black;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
-.avatarThumb {
-  display: block;
-  position: relative;
-  margin: 0 auto;
+.userTag {
+  font-weight: 300;
+  font-size: 30px;
+  color: grey;
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 
-/* test класс через дефис */
-.avatar-image {
-  width: 80px;
+.userLocation {
+  font-weight: 300;
+  font-size: 30px;
+  color: grey;
+  margin: 0;
 }
 
-.isVerificatedImage {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+.statsList {
+  display: flex;
+  list-style: none;
+  border-top: 2px solid grey;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(211, 211, 211);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.statsListItem {
+  width: calc(100% / 3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  font-size: 30px;
+  gap: 10px;
+}
+
+.statsListItem:not(:last-child) {
+  border-right: 2px solid grey;
+}
+
+.statsValue {
+  font-weight: 800;
 }
