@@ -1,0 +1,19 @@
+.userName {
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.userPic {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.userStatus {
+    margin: 0;
+    color: red;
+}
+
+.statusOn {
+    color: green;
+}

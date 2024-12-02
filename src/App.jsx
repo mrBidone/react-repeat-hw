@@ -1,6 +1,10 @@
-import ProfileList from "./components/ProfileList/ProfileList";
-import usersFromData from "./data/data.json";
 import Profile from "./components/Profile/Profile";
+import Section from "./components/Section/Section";
+import FriendList from "./components/FriendList/FriendList";
+import TransactionHistory from "./components/TransactionHistory/TransactionHistory";
+
+import friends from "./data/userData.json";
+import transactions from "./data/transactions.json";
 
 const userData = {
   username: "Jacques Gluke",
@@ -17,13 +21,21 @@ const userData = {
 const App = () => {
   return (
     <>
-      <Profile
-        name={userData.username}
-        tag={userData.tag}
-        location={userData.location}
-        image={userData.avatar}
-        stats={userData.stats}
-      />
+      <Section title="Task 1">
+        <Profile
+          name={userData.username}
+          tag={userData.tag}
+          location={userData.location}
+          image={userData.avatar}
+          stats={userData.stats}
+        />
+      </Section>
+      <Section title="Task 2">
+        <FriendList friends={friends} />
+      </Section>
+      <Section title="Task 3">
+        <TransactionHistory items={transactions} />
+      </Section>
     </>
   );
 };

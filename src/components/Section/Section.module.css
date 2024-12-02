@@ -1,0 +1,13 @@
+.section {
+    min-width: 768px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.sectionTitle {
+    display: block;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 1px solid white;
+
+}
