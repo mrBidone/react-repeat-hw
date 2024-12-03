@@ -15,40 +15,45 @@ const Profile = ({
   gender,
 }) => {
   return (
-    <li
-      className={clsx(
-        css.profileListItem,
-        status === "Online" ? css.isOnline : ""
-      )}
-    >
-      <div className={css.avatarThumb}>
-        {gender === "Female" ? (
-          <img
-            className={css["avatar-image"]} // test класс через дефис
-            src={userFemaleIMG}
-            alt="UserFemale avatar"
-          />
-        ) : (
-          <img
-            className={css["avatar-image"]} // test класс через дефис
-            src={userMaleIMG}
-            alt="UserMale avatar"
-          />
+    <>
+      <li
+        className={clsx(
+          css.profileListItem,
+          status === "Online" ? css.isOnline : ""
         )}
-        {IsVerificated && (
-          <img className={css.isVerificatedImage} src={officialIcon} />
-        )}
-      </div>
+      >
+        <div className={css.avatarThumb}>
+          {gender === "Female" ? (
+            <img
+              className={css["avatar-image"]} // test класс через дефис
+              src={userFemaleIMG}
+              alt="UserFemale avatar"
+            />
+          ) : (
+            <img
+              className={css["avatar-image"]} // test класс через дефис
+              src={userMaleIMG}
+              alt="UserMale avatar"
+            />
+          )}
+          {IsVerificated && (
+            <img className={css.isVerificatedImage} src={officialIcon} />
+          )}
+        </div>
 
-      <p>
-        <span style={{ marginRight: 5 }}>
-          {status === "Online" ? "🟢" : "🔴"}
-        </span>
-        {name}
-      </p>
-      <p>@{tag}</p>
-      <p>{location}</p>
-    </li>
+        <p>
+          <span style={{ marginRight: 5 }}>
+            {status === "Online" ? "🟢" : "🔴"}
+          </span>
+          {name}
+        </p>
+        <p>@{tag}</p>
+        <p>{location}</p>
+        <button type="button" onClick={() => handleClick(name)}>
+          Click to alert
+        </button>
+      </li>
+    </>
   );
 };
 
