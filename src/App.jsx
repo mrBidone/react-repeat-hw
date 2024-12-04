@@ -5,6 +5,7 @@ import usersFromData from "./data/data.json";
 import { useState } from "react";
 import Bar from "./components/Bar/Bar";
 import Counter from "./components/Counter/Counter";
+import Modal from "./components/Modal/Modal";
 
 const App = () => {
   const [showUserList, setshowUserList] = useState(false);
@@ -17,6 +18,15 @@ const App = () => {
 
   const [counter, setCounter] = useState(0);
   const [paragraph, setParagraph] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const changeCounter = (operation) => {
     // if (operation === "+") {
@@ -77,16 +87,18 @@ const App = () => {
           onBarSupplyAdd={onBarSupplyAdd}
         />
       </Section>
+      <Section title="Modal window task">
+        <button type="button" onClick={onOpenModal}>
+          Open Modal
+        </button>
+        {isModalOpen && <Modal onCloseModal={onCloseModal} />}
+      </Section>
       <Section title="Contact List">
         <button type="button" onClick={toogleUserList}>
           Toggle list
         </button>
 
         {showUserList && <ProfileList userList={usersFromData} />}
-      </Section>
-      <Section title="">
-        <p>Counter:</p>
-        <button>Button</button>
       </Section>
       <Section title="Practice task-1">
         <Counter
