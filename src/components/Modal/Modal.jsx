@@ -37,20 +37,35 @@ useEffect(()=>{
     4. Видаляються якісь додаткові функції ефекти(Включення скролу у користувача, коли закрилась мочалка) 
     
 3. Оновлення 
+
+useEffect(() => {
+    console.log("Counter value", counter);
+  }, [counter]);
+
+  -функція яка виконується кожний раз після зміни пропсів, або змінення стейту компонентів.
+
+  Для чого використовується:
+  1. Надсилаються мережеві запити за даними після оновлення. 
+  2. Синхронізація данних з локальним сховищем. 
 */
 
 const Modal = ({ onCloseModal }) => {
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(() => {
+    return parseInt(localStorage.getItem("counterValue") ?? 0);
+  });
 
   useEffect(() => {
     console.log("Counter value", counter);
-  }, [counter]);
+    localStorage.setItem("counterValue", counter); //відправляємо зміненний counter до localStorage;
+  }, [counter]); //використовуємо МАСИВ ЗАЛЕЖНОСТЕЙ, щоб отримувати оновленний стан counter!!!
 
   useEffect(() => {
     console.log("Ya narodyvsja");
 
-    const handleKeyDown = () => {
-      console.log("key pressed");
+    const handleKeyDown = (e) => {
+      if (e.code === "Escape") {
+        onCloseModal();
+      }
     };
     // додавання слухача
     window.addEventListener("keydown", handleKeyDown);
@@ -60,10 +75,16 @@ const Modal = ({ onCloseModal }) => {
       window.removeEventListener("keydown", handleKeyDown);
       console.log("Ya pomer");
     };
-  }, []);
+  }, [onCloseModal]);
+  // закриття модального вікна по кліку на бєкдроп
+  const onHandleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onCloseModal();
+    }
+  };
 
   return (
-    <div className={css.backdrop}>
+    <div className={css.backdrop} onClick={onHandleBackdropClick}>
       <div className={css.modal}>
         <button
           type="button"
