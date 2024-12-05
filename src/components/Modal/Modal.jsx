@@ -51,7 +51,7 @@ useEffect(() => {
 
 const Modal = ({ onCloseModal }) => {
   const [counter, setCounter] = useState(() => {
-    return parseInt(localStorage.getItem("counterValue") ?? 0);
+    return parseInt(localStorage.getItem("counterValue") ?? 0); //parseInt = приводить до числа та робить розпарс з localStorage;
   });
 
   useEffect(() => {
