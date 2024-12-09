@@ -2,9 +2,11 @@ import "./App.css";
 import Section from "./components/Section/Section";
 import ProfileList from "./components/ProfileList/ProfileList";
 import usersFromData from "./data/data.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Bar from "./components/Bar/Bar";
 import Counter from "./components/Counter/Counter";
+import CardsList from "./components/CardsList/CardsList";
+import ColorContainer from "./components/ColorContainer/ColorContainer";
 
 const App = () => {
   const [showUserList, setshowUserList] = useState(false);
@@ -17,6 +19,36 @@ const App = () => {
 
   const [counter, setCounter] = useState(0);
   const [paragraph, setParagraph] = useState(true);
+
+  const [cards, setCards] = useState([
+    {
+      id: 1,
+      flipped: false,
+      title: "card-1",
+      img: "https://fastly.picsum.photos/id/88/1280/1707.jpg?hmac=NnkwPVDBTVxHkc4rALB_fyu-OHY2usdm7iRk5El7JC4",
+      shortDescr: "Lorem ipsum dolor sit amet consectetur",
+      descr:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis harum porro earum laborum culpa nemo!",
+    },
+    {
+      id: 2,
+      flipped: false,
+      title: "card-2",
+      img: "https://fastly.picsum.photos/id/84/1280/848.jpg?hmac=YFRYDI4UsfbeTzI8ZakNOR98wVU7a-9a2tGF542539s",
+      shortDescr: "Lorem ipsum dolor sit amet consectetur",
+      descr:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis harum porro earum laborum culpa nemo!",
+    },
+    {
+      id: 3,
+      flipped: false,
+      title: "card-3",
+      img: "https://fastly.picsum.photos/id/87/1280/960.jpg?hmac=tyU21LuCEO1qRepY4GnT9gGkfKbvY__ZrZYg_JxZxI8",
+      shortDescr: "Lorem ipsum dolor sit amet consectetur",
+      descr:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis harum porro earum laborum culpa nemo!",
+    },
+  ]);
 
   const changeCounter = (operation) => {
     // if (operation === "+") {
@@ -66,6 +98,14 @@ const App = () => {
 
   const totalBottles = bottles.beer + bottles.wine + bottles.whiskey;
 
+  const onFlippedCard = (id) => {
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        card.id === id ? { ...card, flipped: !card.flipped } : card
+      )
+    );
+  };
+
   return (
     <>
       <Section>
@@ -98,6 +138,12 @@ const App = () => {
       <Section title="Practice task-2">
         <p>{!paragraph ? "Close" : "Open"}</p>
         <button onClick={toggleParagraph}>click</button>
+      </Section>
+      <Section title="Practice task-10">
+        <CardsList cards={cards} onFlippedCard={onFlippedCard} />
+      </Section>
+      <Section title="Practice task-7 useEffect">
+        <ColorContainer />
       </Section>
     </>
   );
