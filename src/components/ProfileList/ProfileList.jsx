@@ -1,9 +1,9 @@
 import Profile from "../Profile/Profile";
 
-const ProfileList = ({ userList }) => {
+const ProfileList = ({ users }) => {
   return (
     <ul>
-      {userList.map(
+      {users.map(
         ({ key, name, tag, location, status, isVerified, gender = "Male" }) => {
           return (
             <Profile
