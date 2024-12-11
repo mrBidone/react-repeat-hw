@@ -8,6 +8,7 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import SearchBar from "./components/SearchBar/SearchBar";
 import LangSwitcher from "./components/LangSwitcher/LangSwitcher";
 import AddProfileForm from "./components/AddProfileForm/AddProfileForm";
+import { nanoid } from "nanoid";
 
 const App = () => {
   const [showUserList, setshowUserList] = useState(false);
@@ -15,6 +16,7 @@ const App = () => {
   const [paragraph, setParagraph] = useState(true);
   const [lang, setLang] = useState("🇬🇧");
   const [users, setUsers] = useState(usersFromData);
+  const [filterValue, setFilterValue] = useState("");
 
   const changeCounter = (operation) => {
     // if (operation === "+") {
@@ -47,15 +49,49 @@ const App = () => {
     console.log(userData);
   };
 
+  const onAddProfile = (profile) => {
+    const finalProfile = { ...profile, id: nanoid() };
+
+    setUsers([finalProfile, ...users]);
+  };
+
+  const onDeleteProfile = (profileId) => {
+    setUsers(users.filter((item) => item.id !== profileId));
+  };
+
+  const handleFilter = (e) => {
+    const value = e.target.value;
+
+    setFilterValue(value);
+  };
+
+  const filteredProfiles = users.filter((profile) =>
+    profile.name.toLowerCase().includes(filterValue.toLowerCase())
+  );
+
   return (
     <>
       <Section title="Contact List">
-        <AddProfileForm />
+        <AddProfileForm onAddProfile={onAddProfile} />
+        <div className="">
+          <h2>Search profile</h2>
+          <input
+            type="text"
+            placeholder="Enter profile name"
+            value={filterValue}
+            onChange={handleFilter}
+          ></input>
+        </div>
         <button type="button" onClick={toogleUserList}>
           Toggle list
         </button>
 
-        {showUserList && <ProfileList users={users} />}
+        {showUserList && (
+          <ProfileList
+            onDeleteProfile={onDeleteProfile}
+            filteredProfiles={filteredProfiles}
+          />
+        )}
       </Section>
       <Section title="Practice task-1">
         <Counter

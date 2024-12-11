@@ -1,19 +1,21 @@
 import Profile from "../Profile/Profile";
 
-const ProfileList = ({ users }) => {
+const ProfileList = ({ onDeleteProfile, filteredProfiles }) => {
   return (
     <ul>
-      {users.map(
-        ({ key, name, tag, location, status, isVerified, gender = "Male" }) => {
+      {filteredProfiles.map(
+        ({ id, name, tag, location, status, isVerified, gender = "Male" }) => {
           return (
             <Profile
-              key={key}
+              key={id}
               name={name}
+              id={id}
               tag={tag}
               location={location}
               status={status}
               IsVerificated={isVerified}
               gender={gender}
+              onDeleteProfile={onDeleteProfile}
             />
           );
         }

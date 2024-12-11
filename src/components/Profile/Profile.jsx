@@ -7,12 +7,14 @@ import userFemaleIMG from "../../assets/img/userFemale.png";
 import userMaleIMG from "../../assets/img/userMale.png";
 
 const Profile = ({
+  id,
   name,
   tag,
   location,
   status = "Offline",
   IsVerificated,
   gender,
+  onDeleteProfile,
 }) => {
   return (
     <>
@@ -22,6 +24,15 @@ const Profile = ({
           status === "Online" ? css.isOnline : ""
         )}
       >
+        <button
+          className={css.deleteBtn}
+          type="button"
+          onClick={() => {
+            onDeleteProfile(id);
+          }}
+        >
+          ❌
+        </button>
         <div className={css.avatarThumb}>
           {gender === "Female" ? (
             <img
@@ -49,9 +60,6 @@ const Profile = ({
         </p>
         <p>@{tag}</p>
         <p>{location}</p>
-        <button type="button" onClick={() => handleClick(name)}>
-          Click to alert
-        </button>
       </li>
     </>
   );

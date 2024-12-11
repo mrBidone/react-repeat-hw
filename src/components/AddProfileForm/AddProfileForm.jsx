@@ -1,7 +1,7 @@
 import css from "./AddProfileForm.module.css";
 
 // неконтрольована форма
-const AddProfileForm = () => {
+const AddProfileForm = ({ onAddProfile }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -15,14 +15,18 @@ const AddProfileForm = () => {
     const profileGender = formElements.profileGender.value;
     const profileIsVerified = formElements.profileIsVerified.checked;
 
-    console.log("form:", {
+    const profileObject = {
       name,
       tag,
       location,
       profileStatus,
       profileGender,
       profileIsVerified,
-    });
+    };
+
+    onAddProfile(profileObject);
+
+    e.currentTarget.reset();
   };
 
   return (

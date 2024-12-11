@@ -1,4 +1,5 @@
 .profileListItem {
+  position: relative;
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -27,4 +28,15 @@
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
 }

@@ -1,6 +1,6 @@
 [
   {
-    "key": "user1",
+    "id": "user1",
     "name": "John Smith",
     "tag": "johnny_s",
     "location": "New York, USA",
@@ -15,7 +15,7 @@
     "gender": "Male"
   },
   {
-    "key": "user2",
+    "id": "user2",
     "name": "Emily Johnson",
     "tag": "emily.j",
     "location": "London, UK",
@@ -30,7 +30,7 @@
     "gender": "Female"
   },
   {
-    "key": "user3",
+    "id": "user3",
     "name": "Carlos Garcia",
     "tag": "carlos_gar",
     "location": "Madrid, Spain",
@@ -45,7 +45,7 @@
     "gender": "Male"
   },
   {
-    "key": "user4",
+    "id": "user4",
     "name": "Aiko Tanaka",
     "tag": "aiko_t",
     "location": "Tokyo, Japan",
@@ -60,7 +60,7 @@
     "gender": "Female"
   },
   {
-    "key": "user5",
+    "id": "user5",
     "name": "Liam Brown",
     "tag": "liam_b",
     "location": "Sydney, Australia",
@@ -75,7 +75,7 @@
     "gender": "Male"
   },
   {
-    "key": "user6",
+    "id": "user6",
     "name": "Amara Singh",
     "tag": "amara_singh",
     "location": "Mumbai, India",
@@ -90,7 +90,7 @@
     "gender": "Female"
   },
   {
-    "key": "user7",
+    "id": "user7",
     "name": "Pierre Dubois",
     "tag": "pierre.d",
     "location": "Paris, France",
@@ -105,7 +105,7 @@
     "gender": "Male"
   },
   {
-    "key": "user8",
+    "id": "user8",
     "name": "Nia Adams",
     "tag": "nia_a",
     "location": "Cape Town, South Africa",
@@ -120,7 +120,7 @@
     "gender": "Female"
   },
   {
-    "key": "user9",
+    "id": "user9",
     "name": "Mateo Rossi",
     "tag": "mateo_rossi",
     "location": "Rome, Italy",
@@ -135,7 +135,7 @@
     "gender": "Male"
   },
   {
-    "key": "user10",
+    "id": "user10",
     "name": "Sophia Müller",
     "tag": "sophia_m",
     "location": "Berlin, Germany",
