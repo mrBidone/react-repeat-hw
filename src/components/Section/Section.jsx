@@ -1,10 +1,5 @@
-const Section = ({ title, children }) => {
-  return (
-    <section>
-      {title && <h2>{title}</h2>}
-      {children}
-    </section>
-  );
-};
+import style from './Section.module.css';
 
-export default Section;
+export const Section = ({ children }) => {
+  return <section className={style.section}>{children}</section>;
+};
