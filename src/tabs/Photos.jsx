@@ -1,13 +1,14 @@
 import { getPhotos } from "apiService/photos";
 import { Button, Form, Loader, PhotosGallery, Text } from "components";
 import { useEffect, useState } from "react";
+import { FadeLoader } from "react-spinners";
 
 export const Photos = () => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [images, setImages] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -63,7 +64,7 @@ export const Photos = () => {
       {!images.length && !isEmpty && (
         <Text textAlign="center">Let`s begin search 🔎</Text>
       )}
-      {loading && <Loader />}
+      {loading && <FadeLoader />}
       {error && (
         <Text textAlign="center">❌ Something went wrong - {error}</Text>
       )}
