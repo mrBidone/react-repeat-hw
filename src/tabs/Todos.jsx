@@ -6,6 +6,8 @@ export const Todos = () => {
   const [todos, setTodos] = useState(() => {
     return JSON.parse(localStorage.getItem("todos")) ?? [];
   });
+  const [isEditTodo, setIsEditTodo] = useState(false);
+  const [defaultValue, setDefaultValue] = useState("defValue");
 
   const onAddTodos = (todosText) => {
     const newTodo = {
@@ -24,13 +26,23 @@ export const Todos = () => {
     setTodos(todos.filter((item) => item.id !== todosId));
   };
 
+  const onEditTodo = (todosId) => {
+    setIsEditTodo(true);
+  };
+
   return (
     <>
       <Form onSubmit={onAddTodos} />
       {todos.length === 0 ? (
         <Text textAlign="center">There are no any todos...</Text>
       ) : (
-        <TodoList todos={todos} onDeleteTodos={onDeleteTodos}></TodoList>
+        <TodoList
+          todos={todos}
+          onEditTodo={onEditTodo}
+          onDeleteTodos={onDeleteTodos}
+          isEditTodo={isEditTodo}
+          defaultValue={defaultValue}
+        ></TodoList>
       )}
     </>
   );

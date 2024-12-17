@@ -1,14 +1,23 @@
-import { GridItem, Text } from "..";
+import { EditForm, GridItem, Text } from "..";
 import style from "./TodoListItem.module.css";
 
-export const TodoListItem = ({ id, text, completes, index, onDeleteTodos }) => {
+export const TodoListItem = ({
+  id,
+  text,
+  completes,
+  index,
+  onDeleteTodos,
+  onEditTodo,
+  isEditTodo,
+  defaultValue,
+}) => {
   return (
     <GridItem>
       <div className={style.box}>
         <Text textAlign="center" marginBottom="20">
-          {index + 1}
+          Todo #{index + 1}
         </Text>
-        <Text>{text}</Text>
+        {!isEditTodo ? <Text>{text}</Text> : <EditForm />}
         <button
           onClick={() => {
             onDeleteTodos(id);
@@ -18,7 +27,13 @@ export const TodoListItem = ({ id, text, completes, index, onDeleteTodos }) => {
         >
           X
         </button>
-        <button className={style.editButton} type="button">
+        <button
+          onClick={() => {
+            onEditTodo(id);
+          }}
+          className={style.editButton}
+          type="button"
+        >
           /
         </button>
       </div>
