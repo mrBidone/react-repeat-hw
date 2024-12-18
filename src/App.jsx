@@ -1,68 +1,62 @@
+import { useEffect, useState } from "react";
 import "./App.css";
-import Section from "./components/Section/Section";
-import ProfileList from "./components/ProfileList/ProfileList";
-import usersFromData from "./data/data.json";
-import { useState } from "react";
-import Bar from "./components/Bar/Bar";
+import ContactList from "./components/ContactList/ContactList";
+import SearchBox from "./components/SearchBox/SearchBox";
+import ContactForm from "./components/ContactForm/ContactForm";
+import { nanoid } from "nanoid";
 
 const App = () => {
-  const [showUserList, setshowUserList] = useState(false);
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = localStorage.getItem("contacts");
+    return savedContacts && JSON.parse(savedContacts).length > 0
+      ? JSON.parse(savedContacts)
+      : [
+          { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+          { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+          { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+          { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+        ];
+  });
+  const [filteredValue, setFilteredValue] = useState("");
 
-  const [bottles, setBottles] = useState({
-    beer: 2,
-    wine: 3,
-    whiskey: 1,
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
   });
 
-  const toogleUserList = () => {
-    // setshowUserList((actualState) => !actualState);
-    setshowUserList(!showUserList);
+  const handleFilter = (e) => {
+    const value = e.target.value;
+
+    setFilteredValue(value);
   };
 
-  const onBarSupplyAdd = (alcoName) => {
-    console.log("click", alcoName);
+  const filteredContacts = contacts.filter((contact) => {
+    return contact.name.toLowerCase().includes(filteredValue.toLowerCase());
+  });
 
-    setBottles({ ...bottles, [alcoName]: bottles[alcoName] + 1 });
-    // [alcoName] - динамічний ключ обʼєкту. Передається як аргумент в значенні в режимі ключа, а не просто змінної.
-    // Тому використовуємо в квадратних дужках.
+  const onAddContact = (newContact) => {
+    const finalContact = { ...newContact, id: nanoid() };
 
-    // Аналогічний варіант без використання динамічних ключів [alcoName]
-    // if (alcoName === "beer") {
-    //   setBottles({ ...bottles, beer: bottles["beer"] + 1 });
-    // }
-    // if (alcoName === "wine") {
-    //   setBottles({ ...bottles, wine: bottles["wine"] + 1 });
-    // }
-    // if (alcoName === "whiskey") {
-    //   setBottles({ ...bottles, whiskey: bottles["whiskey"] + 1 });
-    // }
+    setContacts([finalContact, ...contacts]);
   };
 
-  const totalBottles = bottles.beer + bottles.wine + bottles.whiskey;
+  console.log(contacts);
+
+  const onDeleteContact = (contactId) => {
+    setContacts((finalContact) => {
+      return finalContact.filter((contact) => contact.id !== contactId);
+    });
+  };
 
   return (
-    <>
-      <Section>
-        <Bar
-          beer={bottles.beer}
-          wine={bottles.wine}
-          whiskey={bottles.whiskey}
-          total={totalBottles}
-          onBarSupplyAdd={onBarSupplyAdd}
-        />
-      </Section>
-      <Section title="Contact List">
-        <button type="button" onClick={toogleUserList}>
-          Toggle list
-        </button>
-
-        {showUserList && <ProfileList userList={usersFromData} />}
-      </Section>
-      <Section title="">
-        <p>Counter:</p>
-        <button>Button</button>
-      </Section>
-    </>
+    <div>
+      <h1>Phonebook</h1>
+      <SearchBox filteredValue={filteredValue} handleFilter={handleFilter} />
+      <ContactForm onAddContact={onAddContact} />
+      <ContactList
+        onDeleteContact={onDeleteContact}
+        filteredContacts={filteredContacts}
+      ></ContactList>
+    </div>
   );
 };
 
