@@ -12,7 +12,6 @@ export const Todos = () => {
     }
   });
   const [isEditTodo, setIsEditTodo] = useState(null);
-  const [defaultValue, setDefaultValue] = useState("");
 
   const onAddTodos = (todosText) => {
     const newTodo = {
@@ -44,6 +43,16 @@ export const Todos = () => {
     setIsEditTodo(null);
   };
 
+  const onToogleComplete = (todosId) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => {
+        return todo.id === todosId
+          ? { ...todo, completes: !todo.completes }
+          : todo;
+      })
+    );
+  };
+
   return (
     <>
       <Form onSubmit={onAddTodos} />
@@ -55,8 +64,8 @@ export const Todos = () => {
           onEditTodo={onEditTodo}
           onDeleteTodos={onDeleteTodos}
           isEditTodo={isEditTodo}
-          defaultValue={defaultValue}
           onSaveEdit={onSaveEdit}
+          onToogleComplete={onToogleComplete}
         ></TodoList>
       )}
     </>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { EditForm, GridItem, Text } from "..";
 import style from "./TodoListItem.module.css";
 
@@ -9,8 +10,8 @@ export const TodoListItem = ({
   onDeleteTodos,
   onEditTodo,
   isEditTodo,
-  defaultValue,
   onSaveEdit,
+  onToogleComplete,
 }) => {
   return (
     <GridItem>
@@ -24,6 +25,7 @@ export const TodoListItem = ({
           <EditForm
             onSave={(updatedText) => onSaveEdit(id, updatedText)}
             onCancel={() => onSaveEdit(null)}
+            defaultValue={text}
           />
         )}
         <button
@@ -34,6 +36,14 @@ export const TodoListItem = ({
           type="button"
         >
           X
+        </button>
+        <span>status: </span>
+        <button
+          onClick={() => {
+            onToogleComplete(id);
+          }}
+        >
+          {completes ? "🟥 - no completed" : "🟩 - completed"}
         </button>
         <button
           onClick={() => {
