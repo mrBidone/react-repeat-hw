@@ -10,6 +10,7 @@ export const TodoListItem = ({
   onEditTodo,
   isEditTodo,
   defaultValue,
+  onSaveEdit,
 }) => {
   return (
     <GridItem>
@@ -17,7 +18,14 @@ export const TodoListItem = ({
         <Text textAlign="center" marginBottom="20">
           Todo #{index + 1}
         </Text>
-        {!isEditTodo ? <Text>{text}</Text> : <EditForm />}
+        {!isEditTodo ? (
+          <Text>{text}</Text>
+        ) : (
+          <EditForm
+            onSave={(updatedText) => onSaveEdit(id, updatedText)}
+            onCancel={() => onSaveEdit(null)}
+          />
+        )}
         <button
           onClick={() => {
             onDeleteTodos(id);

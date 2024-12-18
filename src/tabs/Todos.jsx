@@ -4,10 +4,15 @@ import { useEffect, useState } from "react";
 
 export const Todos = () => {
   const [todos, setTodos] = useState(() => {
-    return JSON.parse(localStorage.getItem("todos")) ?? [];
+    const savedTodos = localStorage.getItem("todos");
+    try {
+      return savedTodos ? JSON.parse(savedTodos) : [];
+    } catch {
+      return [];
+    }
   });
-  const [isEditTodo, setIsEditTodo] = useState(false);
-  const [defaultValue, setDefaultValue] = useState("defValue");
+  const [isEditTodo, setIsEditTodo] = useState(null);
+  const [defaultValue, setDefaultValue] = useState("");
 
   const onAddTodos = (todosText) => {
     const newTodo = {
@@ -27,7 +32,16 @@ export const Todos = () => {
   };
 
   const onEditTodo = (todosId) => {
-    setIsEditTodo(true);
+    setIsEditTodo(todosId);
+  };
+
+  const onSaveEdit = (todosId, updatedText) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => {
+        return todo.id === todosId ? { ...todo, text: updatedText } : todo;
+      })
+    );
+    setIsEditTodo(null);
   };
 
   return (
@@ -42,6 +56,7 @@ export const Todos = () => {
           onDeleteTodos={onDeleteTodos}
           isEditTodo={isEditTodo}
           defaultValue={defaultValue}
+          onSaveEdit={onSaveEdit}
         ></TodoList>
       )}
     </>

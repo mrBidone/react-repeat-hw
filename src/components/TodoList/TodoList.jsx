@@ -6,6 +6,7 @@ export const TodoList = ({
   onEditTodo,
   isEditTodo,
   defaultValue,
+  onSaveEdit,
 }) => {
   return (
     <Grid>
@@ -18,8 +19,9 @@ export const TodoList = ({
           index={index}
           onDeleteTodos={onDeleteTodos}
           onEditTodo={onEditTodo}
-          isEditTodo={isEditTodo}
+          isEditTodo={id === isEditTodo}
           defaultValue={defaultValue}
+          onSaveEdit={onSaveEdit}
         />
       ))}
     </Grid>
