@@ -7,7 +7,6 @@ import { BeatLoader } from "react-spinners";
 // 2.1. Імпортуємо HTTP-функцію
 import { fetchArticlesWithTopic } from "./articles-api";
 import SearchForm from "./components/SearchForm/SearchForm";
-import { p } from "motion/react-client";
 
 //Виконати HTTP-запит, будь-то в ефекті чи при події
 //У засобах розробки на вкладці Network переконатися, що запит успішний, і у відповідь ми отримуємо дані
@@ -25,7 +24,7 @@ const App = () => {
   // 2.3 Окремий стан для другого запиту
   const [dataArticles, setDataArticles] = useState([]);
   // 3.1 СТАН ЗАПИТУ ЗА ВВЕДЕНИМ ЗНАЧЕННЯМ
-  const [searchArticles, setSearchArticles] = useState([]);
+  const [searchArticles, setSearchArticles] = useState(null);
 
   // НИЖЧЕ ЗАПИТ БЕЗПОСЕРЕДНЬО В APP !!!!!!! (НЕ НАЙКРАЩИЙ ВАРІАНТ! )
   useEffect(() => {
@@ -78,12 +77,12 @@ const App = () => {
   // Функція запиту на сервер по введеному значенню
   const handleSearch = async (topic) => {
     try {
-      setSearchArticles([]);
       setError(false);
       setIsLoader(true);
       const data = await fetchArticlesWithTopic(topic);
       setSearchArticles(data);
     } catch (error) {
+      console.log(error);
       setError(true);
     } finally {
       setIsLoader(false);
@@ -142,12 +141,13 @@ const App = () => {
         >
           {isLoader && <BeatLoader />}
         </div>
-        {searchArticles.length > 0 ? (
+        {Array.isArray(searchArticles) && searchArticles.length === 0 && (
+          <p>Ничего не найдено 😭, измените свой запрос... </p>
+        )}
+        {Array.isArray(searchArticles) && (
           <div>
             <ArticleList items={searchArticles} error={error} />
           </div>
-        ) : (
-          <p>Ничего не найдено 😭, измените свой запрос... </p>
         )}
       </div>
     </div>

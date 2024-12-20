@@ -1,5 +1,3 @@
-import { span } from "motion/react-client";
-
 const SearchForm = ({ onSearch, isLoader }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
