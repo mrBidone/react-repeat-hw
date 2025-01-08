@@ -1,0 +1,21 @@
+.pageHeader {
+    width: 100vh;
+    padding: 20px;
+    background-color: rgb(34, 34, 165);
+}
+
+.headerForm {
+    display: flex;
+    justify-content: center;
+}
+
+.headerFormInput {
+    min-width: 200px;
+    height: 30px;
+}
+
+.headerFormBtn {
+    margin-left: 10px;
+    min-width: 70px;
+
+}
