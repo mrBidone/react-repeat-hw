@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from "./components/Loader/Loader";
 import {
   requestAllProducts,
@@ -11,6 +11,11 @@ const AppWithHTTPS = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
   const [searchValue, setSearchValue] = useState(null);
+
+  const btnRef = useRef();
+  const handleRefClick = () => {
+    console.log("REF:", btnRef.current);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -76,6 +81,9 @@ const AppWithHTTPS = () => {
             );
           })}
       </ul>
+      <button ref={btnRef} onClick={handleRefClick}>
+        Button with Ref
+      </button>
     </div>
   );
 };
