@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import Loader from "./components/Loader/Loader";
+import Loader from "../components/Loader/Loader";
 import {
   requestAllProducts,
   requestProductsBySearchValue,
-} from "./services/api";
-import SearchProductsForm from "./components/SearchProductsForm/SearchProductsForm";
+} from "../services/api";
+import SearchProductsForm from "../components/SearchProductsForm/SearchProductsForm";
+import { Link } from "react-router-dom";
 
-const AppWithHTTPS = () => {
+const SearchPostsPage = () => {
   const [products, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
@@ -66,13 +67,14 @@ const AppWithHTTPS = () => {
       )}
       <ul style={{ listStyle: "none" }}>
         {Array.isArray(products) &&
-          products.map(({ id, title, description, price }) => {
+          products.map(({ id, title, description, price, thumbnail }) => {
             return (
-              <li key={id}>
+              <Link to={`/products/${id}`} key={id}>
+                <img src={thumbnail} alt="" width="150" height="150" />
                 <h3>{title}</h3>
                 <p>{description}</p>
                 <p>{price}$</p>
-              </li>
+              </Link>
             );
           })}
       </ul>
@@ -80,4 +82,4 @@ const AppWithHTTPS = () => {
   );
 };
 
-export default AppWithHTTPS;
+export default SearchPostsPage;
