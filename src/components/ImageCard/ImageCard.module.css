@@ -1,0 +1,9 @@
+.imageGalleryThumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageGalleryItem {
+    padding: 5px;
+}

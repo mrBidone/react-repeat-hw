@@ -1,0 +1,19 @@
+.imageGalleryFlexWrapper {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
+
+.imageGalleryItem {
+    flex-basis: calc((100% - 10px) / 6);
+    cursor: pointer;
+    transition: box-shadow 250ms linear;
+}
+
+.imageGalleryItem:hover {
+    -webkit-box-shadow: 10px 10px 24px -3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 24px -3px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 24px -3px rgba(0, 0, 0, 0.75);
+}

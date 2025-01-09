@@ -1,11 +1,17 @@
 import ImageCard from "../ImageCard/ImageCard";
+import css from "./ImageGallery.module.css";
 
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images, openModal }) => {
   return (
-    <ul>
+    <ul className={css.imageGalleryFlexWrapper}>
       {images.map(({ id, avg_color, alt, src }) => (
-        <li key={id}>
-          <ImageCard backgColor={avg_color} descr={alt} imgUrl={src} />
+        <li key={id} className={css.imageGalleryItem}>
+          <ImageCard
+            backgColor={avg_color}
+            descr={alt}
+            imgUrl={src}
+            openModal={openModal}
+          />
         </li>
       ))}
     </ul>

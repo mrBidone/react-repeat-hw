@@ -1,0 +1,23 @@
+loadMoreBtnContainer {
+    padding: 20px 0;
+}
+
+.loadMoreBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 10px auto;
+    min-width: 150px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 0;
+    border: none;
+    border-radius: 15px;
+    background-color: rgb(21, 21, 214);
+    color: white;
+}
+
+.moreBtnLoaderThumb {
+    max-width: 30px;
+}

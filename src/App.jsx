@@ -4,7 +4,8 @@ import { getImages } from "./services/photos";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import { Button } from "@nextui-org/button";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -13,6 +14,9 @@ const App = () => {
   const [images, setImages] = useState([]);
   const [error, setError] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalUrl, setModalUrl] = useState("");
+  const [modalAlt, setModalAlt] = useState("");
 
   useEffect(() => {
     if (!searchQuery) {
@@ -49,15 +53,33 @@ const App = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
+  const openModal = (url, alt) => {
+    setModalIsOpen(true);
+    setModalUrl(url);
+    setModalAlt(alt);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setModalUrl("");
+    setModalAlt("");
+  };
+
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
       {loading && <Loader />}
-      <ImageGallery images={images}></ImageGallery>
+      <ImageGallery images={images} openModal={openModal}></ImageGallery>
+      {modalIsOpen && (
+        <ImageModal
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+          url={modalUrl}
+          alt={modalAlt}
+        />
+      )}
       {isVisible && (
-        <Button onPress={onLoadMoreBtn} color="primary" variant="light">
-          Load More
-        </Button>
+        <LoadMoreBtn loading={loading} onLoadMoreBtn={onLoadMoreBtn} />
       )}
       {error && <ErrorMessage error={error} />}
     </div>

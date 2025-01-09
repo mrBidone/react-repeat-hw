@@ -15,7 +15,7 @@ const SearchBar = ({ onSubmit }) => {
   };
 
   return (
-    <header className={css.pageHeader}>
+    <header className={css.pageHeader} style={{ marginBottom: 10 }}>
       <div>
         <Toaster />
       </div>
