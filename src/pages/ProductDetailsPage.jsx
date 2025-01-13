@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
 import { requestSingleProductData } from "../services/api";
+import ModalImage from "../components/ModalImage/ModalImage";
 
 const ProductDetailsPage = () => {
   const { productId } = useParams();
   const [productDetails, setProductDetails] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalImage, setIsModalImage] = useState("");
+  const [modalImageAlt, setIsModalImageAlt] = useState("");
 
   useEffect(() => {
     const fetchSingleProduct = async () => {
@@ -18,6 +22,18 @@ const ProductDetailsPage = () => {
     fetchSingleProduct();
   }, [productId]);
 
+  const openModal = (image, title) => {
+    setModalIsOpen(true);
+    setIsModalImage(image);
+    setIsModalImageAlt(title);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setIsModalImage("");
+    setIsModalImageAlt("");
+  };
+
   return (
     <div>
       <h2>Post Details id: {productId}</h2>
@@ -27,10 +43,13 @@ const ProductDetailsPage = () => {
           <p>brand: {productDetails.brand}</p>
           <p>category: {productDetails.category}</p>
           <p>{productDetails.description}</p>
-          <ul>
+          <ul style={{ listStyle: "none" }}>
             {productDetails.images.map((image, index) => {
               return (
-                <li key={index}>
+                <li
+                  onClick={() => openModal(image, productDetails.title)}
+                  key={index}
+                >
                   <img src={image} alt="" width="200" height="200" />
                 </li>
               );
@@ -38,11 +57,15 @@ const ProductDetailsPage = () => {
           </ul>
           <p>Price: {productDetails.price}$</p>
           <Link to="reviews">Reviews</Link>
-          <div>
-            <Outlet />
-          </div>
+          <Outlet />
         </div>
       )}
+      <ModalImage
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        image={modalImage}
+        title={modalImageAlt}
+      />
     </div>
   );
 };

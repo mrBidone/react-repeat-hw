@@ -20,7 +20,7 @@ const ProductReviews = () => {
 
   return (
     <div>
-      <ul>
+      <ul style={{ listStyle: "none" }}>
         {reviews.map(({ comment, id }, index) => {
           return (
             <li key={id || index}>

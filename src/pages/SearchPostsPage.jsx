@@ -69,12 +69,14 @@ const SearchPostsPage = () => {
         {Array.isArray(products) &&
           products.map(({ id, title, description, price, thumbnail }) => {
             return (
-              <Link to={`/products/${id}`} key={id}>
-                <img src={thumbnail} alt="" width="150" height="150" />
-                <h3>{title}</h3>
-                <p>{description}</p>
-                <p>{price}$</p>
-              </Link>
+              <li key={id}>
+                <Link to={`/products/${id}`}>
+                  <img src={thumbnail} alt="" width="150" height="150" />
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                  <p>{price}$</p>
+                </Link>
+              </li>
             );
           })}
       </ul>
