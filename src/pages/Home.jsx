@@ -1,11 +1,39 @@
-import { Container, Heading, Section } from 'components';
+import axios from "axios";
+import { Container, CountryList, Heading, Section } from "components";
+import Loader from "components/Loader/Loader";
+import { useEffect, useState } from "react";
+import { getCountries } from "service/countryApi";
 
-export const Home = () => {
+const Home = () => {
+  const [countries, setCountries] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await getCountries();
+        setCountries(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <Section>
       <Container>
-        <Heading title="Home" bottom />
+        {loading && <Loader />}
+        {countries.length > 0 && <CountryList countries={countries} />}
+        {error && <Heading title={error.message} />}
       </Container>
     </Section>
   );
 };
+
+export default Home;
