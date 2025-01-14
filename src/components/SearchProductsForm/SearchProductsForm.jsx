@@ -1,8 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
-const INITIAL_VALUES = { searchTerm: "" };
-
 const SearchProductsValidationSchema = Yup.object().shape({
   searchTerm: Yup.string()
     .required("Пошукове поле обов'язкове")
@@ -10,7 +8,11 @@ const SearchProductsValidationSchema = Yup.object().shape({
     .max(20, "Пошукове поле має бути максимум 20 символів"),
 });
 
-const SearchProductsForm = ({ onSearch }) => {
+const SearchProductsForm = ({ onSearch, defaultSearchValue }) => {
+  const INITIAL_VALUES = {
+    searchTerm: defaultSearchValue || "",
+  };
+
   const handleProductsSubmit = (values) => {
     onSearch(values.searchTerm);
   };

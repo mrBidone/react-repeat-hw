@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { requestSingleProductData } from "../services/api";
 import ModalImage from "../components/ModalImage/ModalImage";
 
@@ -9,6 +9,11 @@ const ProductDetailsPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalImage, setIsModalImage] = useState("");
   const [modalImageAlt, setIsModalImageAlt] = useState("");
+
+  const location = useLocation();
+  console.log("location from DetailsPage", location);
+
+  const backLinkRef = useRef(location.state?.from ?? "/posts");
 
   useEffect(() => {
     const fetchSingleProduct = async () => {
@@ -36,6 +41,7 @@ const ProductDetailsPage = () => {
 
   return (
     <div>
+      <Link to={backLinkRef.current}> 👈🏽 Go Back </Link>
       <h2>Post Details id: {productId}</h2>
       {productDetails !== null && (
         <div>
@@ -49,6 +55,7 @@ const ProductDetailsPage = () => {
                 <li
                   onClick={() => openModal(image, productDetails.title)}
                   key={index}
+                  style={{ cursor: "pointer" }}
                 >
                   <img src={image} alt="" width="200" height="200" />
                 </li>

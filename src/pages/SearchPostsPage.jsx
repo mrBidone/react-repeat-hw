@@ -1,43 +1,38 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
 import {
   requestAllProducts,
   requestProductsBySearchValue,
 } from "../services/api";
 import SearchProductsForm from "../components/SearchProductsForm/SearchProductsForm";
-import { Link } from "react-router-dom";
 
 const SearchPostsPage = () => {
   const [products, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
-  const [searchValue, setSearchValue] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  // Отримання обʼєкту місцезнаходження!!!! =========================
+  const location = useLocation();
+  console.log("location: ", location);
+
+  // 1. Зчитуємо пошуковий параметр з URL-строки
+  const queryValue = searchParams.get("query");
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setIsLoading(true);
-        const data = await requestAllProducts();
-        setProducts(data.products);
-      } catch (error) {
-        console.log(error);
-        setIsError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    if (searchValue === null) return;
-
+    // 3. підписуємо UseEffect на запит queryValue
+    // if (!queryValue) return;
     const fetchProductsByValue = async () => {
       try {
         setIsLoading(true);
-        const data = await requestProductsBySearchValue(searchValue);
-        setProducts(data.products);
+        if (queryValue) {
+          // 4. Тут так само, робимо запит по queryValue
+          const data = await requestProductsBySearchValue(queryValue);
+          setProducts(data.products);
+        } else {
+          const data = await requestAllProducts();
+          setProducts(data.products);
+        }
       } catch (error) {
         console.log(error);
         setIsError(error.message);
@@ -47,17 +42,19 @@ const SearchPostsPage = () => {
     };
 
     fetchProductsByValue();
-  }, [searchValue]);
+    // 5. У масив залежностей додаємо queryValue для спостерігання.
+  }, [queryValue]);
 
   const onSearch = (searchTerm) => {
-    setSearchValue(searchTerm);
+    // 2. Встановлюємо пошукові параметри по ключу "query"
+    setSearchParams({ query: searchTerm });
   };
 
   return (
     <div>
       <h2>APP-2</h2>
-      <SearchProductsForm onSearch={onSearch} />
-      {searchValue && <p>{searchValue}</p>}
+      <SearchProductsForm defaultSearchValue={queryValue} onSearch={onSearch} />
+      {queryValue && <p>{queryValue}</p>}
       {Array.isArray(products) && products.length === 0 && (
         <p>Ничего не найдено 😭, измените свой запрос... </p>
       )}
@@ -70,7 +67,7 @@ const SearchPostsPage = () => {
           products.map(({ id, title, description, price, thumbnail }) => {
             return (
               <li key={id}>
-                <Link to={`/products/${id}`}>
+                <Link state={{ from: location }} to={`/products/${id}`}>
                   <img src={thumbnail} alt="" width="150" height="150" />
                   <h3>{title}</h3>
                   <p>{description}</p>

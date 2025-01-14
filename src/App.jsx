@@ -1,8 +1,17 @@
+import { lazy, Suspense } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import SearchPostsPage from "./pages/SearchPostsPage";
-import ProductDetailsPage from "./pages/ProductDetailsPage";
-import ProductReviews from "./components/ProductReviews/ProductReviews";
+import Loader from "./components/Loader/Loader";
+// import HomePage from "./pages/HomePage";
+// import SearchPostsPage from "./pages/SearchPostsPage";
+// import ProductDetailsPage from "./pages/ProductDetailsPage";
+// import ProductReviews from "./components/ProductReviews/ProductReviews";
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const SearchPostsPage = lazy(() => import("./pages/SearchPostsPage"));
+const ProductDetailsPage = lazy(() => import("./pages/ProductDetailsPage"));
+const ProductReviews = lazy(() =>
+  import("./components/ProductReviews/ProductReviews")
+);
 
 const App = () => {
   return (
@@ -21,13 +30,15 @@ const App = () => {
         </nav>
       </header>
       <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/search-posts" element={<SearchPostsPage />} />
-          <Route path="/products/:productId" element={<ProductDetailsPage />}>
-            <Route path="reviews" element={<ProductReviews />} />
-          </Route>
-        </Routes>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/search-posts" element={<SearchPostsPage />} />
+            <Route path="/products/:productId" element={<ProductDetailsPage />}>
+              <Route path="reviews" element={<ProductReviews />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </main>
       <footer>
         <p>Footer Contant</p>
