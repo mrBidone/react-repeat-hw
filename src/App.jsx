@@ -15,6 +15,7 @@ import {
   deleteProfile,
   showProfilesList,
 } from "./redux/profiles/profilesReducer";
+import NewCounter from "./components/NewCounter/NewCounter";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -113,6 +114,9 @@ const App = () => {
       <Section title="Контрольованний селект">
         <p style={{ fontSize: 30 }}>Selected language: {lang}</p>
         <LangSwitcher value={lang} onSelect={setLang} />
+      </Section>
+      <Section>
+        <NewCounter />
       </Section>
     </>
   );
