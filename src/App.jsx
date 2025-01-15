@@ -9,25 +9,26 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import LangSwitcher from "./components/LangSwitcher/LangSwitcher";
 import AddProfileForm from "./components/AddProfileForm/AddProfileForm";
 import { nanoid } from "nanoid";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addProfile,
+  deleteProfile,
+  showProfilesList,
+} from "./redux/profiles/profilesReducer";
 
 const App = () => {
-  const [showUserList, setshowUserList] = useState(false);
+  const dispatch = useDispatch();
+
+  const users = useSelector((state) => state.profiles.profiles);
+  const showUserList = useSelector((state) => state.profiles.showProfilesList);
+
+  const [filterValue, setFilterValue] = useState("");
+
   const [counter, setCounter] = useState(0);
   const [paragraph, setParagraph] = useState(true);
   const [lang, setLang] = useState("🇬🇧");
-  const [users, setUsers] = useState(usersFromData);
-  const [filterValue, setFilterValue] = useState("");
 
   const changeCounter = (operation) => {
-    // if (operation === "+") {
-    //   setCounter(counter + 1);
-    // }
-    // if (operation === "-" && counter > 0) {
-    //   setCounter(counter - 1);
-    // }
-    // Аналогичный более корректный вариант!
-    //Здесь prevCounter — это текущее состояние, переданное в setCounter.
-    // Используется Math.max для предотвращения ухода в отрицательные значения. Это избавляет от лишней проверки if.
     setCounter((prevCounter) =>
       operation === "+" ? prevCounter + 1 : Math.max(prevCounter - 1, 0)
     );
@@ -35,10 +36,6 @@ const App = () => {
 
   const resetCounter = () => {
     setCounter(0);
-  };
-  const toogleUserList = () => {
-    // setshowUserList((actualState) => !actualState);
-    setshowUserList(!showUserList);
   };
 
   const toggleParagraph = () => {
@@ -51,12 +48,15 @@ const App = () => {
 
   const onAddProfile = (profile) => {
     const finalProfile = { ...profile, id: nanoid() };
-
-    setUsers([finalProfile, ...users]);
+    dispatch(addProfile(finalProfile));
   };
 
   const onDeleteProfile = (profileId) => {
-    setUsers(users.filter((item) => item.id !== profileId));
+    dispatch(deleteProfile(profileId));
+  };
+
+  const toogleUserList = () => {
+    dispatch(showProfilesList(!showUserList));
   };
 
   const handleFilter = (e) => {
