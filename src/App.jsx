@@ -16,14 +16,20 @@ import {
   showProfilesList,
 } from "./redux/profiles/profilesReducer";
 import NewCounter from "./components/NewCounter/NewCounter";
+import { setFilterValue } from "./redux/filter/filterReducer";
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const users = useSelector((state) => state.profiles.profiles);
+  const users = useSelector((state) => {
+    // переглядаемо STATE у консолі
+    console.log(state);
+    return state.profiles.profiles;
+  });
   const showUserList = useSelector((state) => state.profiles.showProfilesList);
 
-  const [filterValue, setFilterValue] = useState("");
+  // const [filterValue, setFilterValue] = useState("");
+  const filterValue = useSelector((state) => state.filter.filterValue);
 
   const [counter, setCounter] = useState(0);
   const [paragraph, setParagraph] = useState(true);
@@ -63,7 +69,7 @@ const App = () => {
   const handleFilter = (e) => {
     const value = e.target.value;
 
-    setFilterValue(value);
+    dispatch(setFilterValue(value));
   };
 
   const filteredProfiles = users.filter((profile) =>
