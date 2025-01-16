@@ -1,34 +1,58 @@
-import { createAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   counter: 100,
   step: 1,
 };
 
-export const counterReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case plusClick.type: {
-      return {
-        ...state,
-        counter: state.counter + state.step,
-      };
-    }
-    case minusClick.type: {
-      return {
-        ...state,
-        counter: state.counter - state.step,
-      };
-    }
-    case resetClick.type: {
+const counterSlice = createSlice({
+  name: "counter",
+  initialState: INITIAL_STATE,
+  reducers: {
+    plusClick: (state, action) => {
+      state.counter += state.step;
+    },
+    minusClick: (state, action) => {
+      state.counter -= state.step;
+    },
+    resetClick: (state, action) => {
       return INITIAL_STATE;
-    }
-    case changeStep.type: {
-      return { ...state, step: action.payload };
-    }
-    default:
-      return state;
-  }
-};
+    },
+    changeStep: (state, action) => {
+      state.step = action.payload;
+    },
+  },
+});
+
+export const counterReducer = counterSlice.reducer;
+
+export const { plusClick, minusClick, resetClick, changeStep } =
+  counterSlice.actions;
+
+// export const counterReducer = (state = INITIAL_STATE, action) => {
+//   switch (action.type) {
+//     case plusClick.type: {
+//       return {
+//         ...state,
+//         counter: state.counter + state.step,
+//       };
+//     }
+//     case minusClick.type: {
+//       return {
+//         ...state,
+//         counter: state.counter - state.step,
+//       };
+//     }
+//     case resetClick.type: {
+//       return INITIAL_STATE;
+//     }
+//     case changeStep.type: {
+//       return { ...state, step: action.payload };
+//     }
+//     default:
+//       return state;
+//   }
+// };
 
 // ACTIONS =========>
 
@@ -54,8 +78,8 @@ export const counterReducer = (state = INITIAL_STATE, action) => {
 
 // createActions =============>
 
-export const plusClick = createAction("increment");
-export const minusClick = createAction("decrement");
-export const resetClick = createAction("reset");
-export const changeStep = createAction("changeStep");
+// export const plusClick = createAction("increment");
+// export const minusClick = createAction("decrement");
+// export const resetClick = createAction("reset");
+// export const changeStep = createAction("changeStep");
 // повертає {type: "changeStep(5), payload: 5"}

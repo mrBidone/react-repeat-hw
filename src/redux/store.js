@@ -23,10 +23,16 @@ const profilesConfig = {
   whitelist: ["profiles"],
 };
 
+const counterConfig = {
+  key: "counter",
+  storage,
+  whitelist: ["counter", "step"],
+};
+
 export const store = configureStore({
   reducer: {
     profiles: persistReducer(profilesConfig, profilesReducer),
-    counter: counterReducer,
+    counter: persistReducer(counterConfig, counterReducer),
     filter: filterReducer,
   },
 
