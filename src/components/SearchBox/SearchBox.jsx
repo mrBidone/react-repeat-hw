@@ -1,4 +1,15 @@
-const SearchBox = ({ filteredValue, handleFilter }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { changeFilter } from "../../redux/filtersSlice";
+
+const SearchBox = () => {
+  const dispatch = useDispatch();
+  const filteredValue = useSelector((state) => state.filters.name);
+
+  const handleFilter = (e) => {
+    const value = e.target.value;
+
+    dispatch(changeFilter(value));
+  };
   return (
     <div>
       <label htmlFor="searchInput">
