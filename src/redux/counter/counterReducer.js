@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
-  counter: 100,
+  counter: 0,
   step: 1,
 };
 
@@ -15,7 +15,7 @@ const counterSlice = createSlice({
     minusClick: (state, action) => {
       state.counter -= state.step;
     },
-    resetClick: (state, action) => {
+    resetClick: () => {
       return INITIAL_STATE;
     },
     changeStep: (state, action) => {
@@ -28,6 +28,9 @@ export const counterReducer = counterSlice.reducer;
 
 export const { plusClick, minusClick, resetClick, changeStep } =
   counterSlice.actions;
+
+export const selectCounter = (state) => state.counter.counter;
+export const selectStep = (state) => state.counter.step;
 
 // export const counterReducer = (state = INITIAL_STATE, action) => {
 //   switch (action.type) {

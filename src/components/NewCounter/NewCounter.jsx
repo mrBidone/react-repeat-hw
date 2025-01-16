@@ -5,13 +5,15 @@ import {
   minusClick,
   plusClick,
   resetClick,
+  selectCounter,
+  selectStep,
 } from "../../redux/counter/counterReducer";
 
 const NewCounter = () => {
   const dispatch = useDispatch();
 
-  const counter = useSelector((state) => state.counter.counter);
-  const step = useSelector((state) => state.counter.step);
+  const counter = useSelector(selectCounter);
+  const step = useSelector(selectStep);
 
   const handlePlusClick = () => {
     dispatch(plusClick());
