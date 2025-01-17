@@ -1,17 +1,16 @@
 import { Form, Text, TodoList } from "components";
 import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addTodo,
+  deleteTodo,
+  editTodo,
+  toggleComplete,
+} from "../redux/todosSlice";
 
 export const Todos = () => {
-  const [todos, setTodos] = useState(() => {
-    const savedTodos = localStorage.getItem("todos");
-    try {
-      return savedTodos ? JSON.parse(savedTodos) : [];
-    } catch {
-      return [];
-    }
-  });
-  const [isEditTodo, setIsEditTodo] = useState(null);
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos.todos);
 
   const onAddTodos = (todosText) => {
     const newTodo = {
@@ -19,38 +18,20 @@ export const Todos = () => {
       text: todosText,
       completes: false,
     };
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    dispatch(addTodo(newTodo));
   };
 
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
-
   const onDeleteTodos = (todosId) => {
-    setTodos(todos.filter((item) => item.id !== todosId));
+    dispatch(deleteTodo(todosId));
   };
 
   const onEditTodo = (todosId) => {
-    setIsEditTodo(todosId);
-  };
-
-  const onSaveEdit = (todosId, updatedText) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) => {
-        return todo.id === todosId ? { ...todo, text: updatedText } : todo;
-      })
-    );
-    setIsEditTodo(null);
+    const newTodoText = prompt("Enter new task:");
+    dispatch(editTodo({ id: todosId, todo: newTodoText }));
   };
 
   const onToogleComplete = (todosId) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) => {
-        return todo.id === todosId
-          ? { ...todo, completes: !todo.completes }
-          : todo;
-      })
-    );
+    dispatch(toggleComplete(todosId));
   };
 
   return (
@@ -63,8 +44,6 @@ export const Todos = () => {
           todos={todos}
           onEditTodo={onEditTodo}
           onDeleteTodos={onDeleteTodos}
-          isEditTodo={isEditTodo}
-          onSaveEdit={onSaveEdit}
           onToogleComplete={onToogleComplete}
         ></TodoList>
       )}

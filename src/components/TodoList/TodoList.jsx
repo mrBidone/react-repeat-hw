@@ -4,8 +4,6 @@ export const TodoList = ({
   todos,
   onDeleteTodos,
   onEditTodo,
-  isEditTodo,
-  onSaveEdit,
   onToogleComplete,
 }) => {
   return (
@@ -19,8 +17,6 @@ export const TodoList = ({
           index={index}
           onDeleteTodos={onDeleteTodos}
           onEditTodo={onEditTodo}
-          isEditTodo={id === isEditTodo}
-          onSaveEdit={onSaveEdit}
           onToogleComplete={onToogleComplete}
         />
       ))}
