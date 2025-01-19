@@ -1,36 +1,33 @@
 import "./App.css";
 import Section from "./components/Section/Section";
 import ProfileList from "./components/ProfileList/ProfileList";
-import usersFromData from "./data/data.json";
 import { useEffect, useState } from "react";
 import Counter from "./components/Counter/Counter";
 import LoginForm from "./components/LoginForm/LoginForm";
 import SearchBar from "./components/SearchBar/SearchBar";
 import LangSwitcher from "./components/LangSwitcher/LangSwitcher";
 import AddProfileForm from "./components/AddProfileForm/AddProfileForm";
-import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addProfile,
+  apiAddProfile,
+  apiDeleteProfile,
   apiGetAllProfiles,
-  deleteProfile,
   showProfilesList,
 } from "./redux/profiles/profilesReducer";
 import NewCounter from "./components/NewCounter/NewCounter";
 import { setFilterValue } from "./redux/filter/filterReducer";
+import {
+  selectProfiles,
+  selectShowUserList,
+} from "./redux/profiles/profiles.selectors";
+import { selectFilter } from "./redux/filter/filter.selector";
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const users = useSelector((state) => {
-    // переглядаемо STATE у консолі
-    console.log(state);
-    return state.profiles.profiles;
-  });
-  const showUserList = useSelector((state) => state.profiles.showProfilesList);
-
-  // const [filterValue, setFilterValue] = useState("");
-  const filterValue = useSelector((state) => state.filter.filterValue);
+  const users = useSelector(selectProfiles);
+  const showUserList = useSelector(selectShowUserList);
+  const filterValue = useSelector(selectFilter);
 
   const [counter, setCounter] = useState(0);
   const [paragraph, setParagraph] = useState(true);
@@ -59,12 +56,11 @@ const App = () => {
   };
 
   const onAddProfile = (profile) => {
-    const finalProfile = { ...profile, id: nanoid() };
-    dispatch(addProfile(finalProfile));
+    dispatch(apiAddProfile(profile));
   };
 
   const onDeleteProfile = (profileId) => {
-    dispatch(deleteProfile(profileId));
+    dispatch(apiDeleteProfile(profileId));
   };
 
   const toogleUserList = () => {
@@ -78,7 +74,7 @@ const App = () => {
   };
 
   const filteredProfiles = users.filter((profile) =>
-    profile.name.toLowerCase().includes(filterValue.toLowerCase())
+    profile.profileName.toLowerCase().includes(filterValue.toLowerCase())
   );
 
   return (

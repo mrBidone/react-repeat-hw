@@ -8,22 +8,17 @@ import userMaleIMG from "../../assets/img/userMale.png";
 
 const Profile = ({
   id,
-  name,
+  profileName,
   tag,
   location,
-  status = "Offline",
-  IsVerificated,
-  gender,
+  isOnline,
+  profileIsVerified,
+  profileGender,
   onDeleteProfile,
 }) => {
   return (
     <>
-      <li
-        className={clsx(
-          css.profileListItem,
-          status === "Online" ? css.isOnline : ""
-        )}
-      >
+      <li className={clsx(css.profileListItem, isOnline ? css.isOnline : "")}>
         <button
           className={css.deleteBtn}
           type="button"
@@ -34,7 +29,7 @@ const Profile = ({
           ❌
         </button>
         <div className={css.avatarThumb}>
-          {gender === "Female" ? (
+          {!profileGender ? (
             <img
               className={css["avatar-image"]} // test класс через дефис
               src={userFemaleIMG}
@@ -47,16 +42,14 @@ const Profile = ({
               alt="UserMale avatar"
             />
           )}
-          {IsVerificated && (
+          {profileIsVerified && (
             <img className={css.isVerificatedImage} src={officialIcon} />
           )}
         </div>
 
         <p>
-          <span style={{ marginRight: 5 }}>
-            {status === "Online" ? "🟢" : "🔴"}
-          </span>
-          {name}
+          <span style={{ marginRight: 5 }}>{isOnline ? "🟢" : "🔴"}</span>
+          {profileName}
         </p>
         <p>@{tag}</p>
         <p>{location}</p>

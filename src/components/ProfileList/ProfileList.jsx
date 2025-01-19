@@ -4,17 +4,25 @@ const ProfileList = ({ onDeleteProfile, filteredProfiles }) => {
   return (
     <ul>
       {filteredProfiles.map(
-        ({ id, name, tag, location, status, isVerified, gender = "Male" }) => {
+        ({
+          id,
+          profileName,
+          tag,
+          location,
+          isOnline,
+          profileIsVerified,
+          profileGender,
+        }) => {
           return (
             <Profile
               key={id}
-              name={name}
+              profileName={profileName}
               id={id}
               tag={tag}
               location={location}
-              status={status}
-              IsVerificated={isVerified}
-              gender={gender}
+              isOnline={isOnline}
+              profileIsVerified={profileIsVerified}
+              profileGender={profileGender}
               onDeleteProfile={onDeleteProfile}
             />
           );

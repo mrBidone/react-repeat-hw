@@ -15,12 +15,12 @@ const ProfileValidationSchema = Yup.object().shape({
     .required("Location профілю має бути обовʼязковим")
     .min(2, "location профілю має бути мінімум 2 символи")
     .max(15, "location профілю має бути меньшим за 15 символів"),
-  profileStatus: Yup.string()
-    .required("Статус профілю є обовʼязковим для вибору")
-    .oneOf(["Online", "Offline"]),
-  profileGender: Yup.string()
-    .required("Стать особи профілю є обовʼязковим для вибору")
-    .oneOf(["Male", "Female"]),
+  // profileStatus: Yup.bool()
+  //   .required("Статус профілю є обовʼязковим для вибору")
+  //   .oneOf(["Online", "Offline"]),
+  // profileGender: Yup.bool()
+  //   .required("Стать особи профілю є обовʼязковим для вибору")
+  //   .oneOf(["Male", "Female"]),
   profileIsVerified: Yup.bool(),
 });
 
@@ -28,8 +28,8 @@ const INITIAL_VALUES = {
   profileName: "",
   tag: "",
   location: "",
-  profileStatus: "",
-  profileGender: "",
+  isOnline: false,
+  profileGender: false,
   profileIsVerified: false,
 };
 
@@ -39,12 +39,12 @@ const AddProfileForm = ({ onAddProfile }) => {
     console.log(values);
 
     const profileObject = {
-      name: values.profileName,
+      profileName: values.profileName,
       tag: values.tag,
       location: values.location,
-      status: values.profileStatus,
-      gender: values.profileGender,
-      isVerified: values.profileIsVerified,
+      isOnline: false,
+      profileGender: false,
+      profileIsVerified: values.profileIsVerified,
     };
 
     onAddProfile(profileObject);
@@ -87,16 +87,15 @@ const AddProfileForm = ({ onAddProfile }) => {
               component="span"
             />
           </label>
-          <p>Status activity:</p>
+          {/* <p>Status activity:</p>
           <label>
             <span>
-              Online: <Field type="radio" name="profileStatus" value="Online" />
+              Online: <Field type="radio" name="profileStatus" value={true} />
             </span>
           </label>
           <label>
             <span>
-              Offline:{" "}
-              <Field type="radio" name="profileStatus" value="Offline" />
+              Offline: <Field type="radio" name="profileStatus" value={false} />
             </span>
             <ErrorMessage
               className={css.errorMessage}
@@ -108,19 +107,19 @@ const AddProfileForm = ({ onAddProfile }) => {
           <label>
             <span>
               Female:
-              <Field type="radio" name="profileGender" value="Female" />
+              <Field type="radio" name="profileGender" value={true} />
             </span>
           </label>
           <label>
             <span>
-              Male: <Field type="radio" name="profileGender" value="Male" />
+              Male: <Field type="radio" name="profileGender" value={false} />
             </span>
             <ErrorMessage
               className={css.errorMessage}
               name="profileGender"
               component="span"
             />
-          </label>
+          </label> */}
           <label htmlFor="">
             <span>
               The user is Verified:
