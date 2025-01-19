@@ -17,7 +17,7 @@ import {
 import NewCounter from "./components/NewCounter/NewCounter";
 import { setFilterValue } from "./redux/filter/filterReducer";
 import {
-  selectProfiles,
+  selectFilteredProfiles,
   selectShowUserList,
 } from "./redux/profiles/profiles.selectors";
 import { selectFilter } from "./redux/filter/filter.selector";
@@ -25,9 +25,9 @@ import { selectFilter } from "./redux/filter/filter.selector";
 const App = () => {
   const dispatch = useDispatch();
 
-  const users = useSelector(selectProfiles);
   const showUserList = useSelector(selectShowUserList);
   const filterValue = useSelector(selectFilter);
+  const filteredProfiles = useSelector(selectFilteredProfiles);
 
   const [counter, setCounter] = useState(0);
   const [paragraph, setParagraph] = useState(true);
@@ -73,9 +73,9 @@ const App = () => {
     dispatch(setFilterValue(value));
   };
 
-  const filteredProfiles = users.filter((profile) =>
-    profile.profileName.toLowerCase().includes(filterValue.toLowerCase())
-  );
+  // const filteredProfiles = users.filter((profile) =>
+  //   profile.profileName.toLowerCase().includes(filterValue.toLowerCase())
+  // );
 
   return (
     <>
