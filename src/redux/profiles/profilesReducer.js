@@ -1,4 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+export const apiGetAllProfiles = createAsyncThunk(
+  "profiles/getAll",
+  async () => {
+    try {
+      const { data } = await axios.get(
+        "https://678aa23cdd587da7ac2aeb83.mockapi.io/api/v1/profile"
+      );
+      console.log("data: ", data);
+    } catch (error) {}
+  }
+);
 
 const INITIAL_STATE = {
   profiles: [],

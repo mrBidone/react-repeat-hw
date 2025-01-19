@@ -2,7 +2,7 @@ import "./App.css";
 import Section from "./components/Section/Section";
 import ProfileList from "./components/ProfileList/ProfileList";
 import usersFromData from "./data/data.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Counter from "./components/Counter/Counter";
 import LoginForm from "./components/LoginForm/LoginForm";
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -12,6 +12,7 @@ import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addProfile,
+  apiGetAllProfiles,
   deleteProfile,
   showProfilesList,
 } from "./redux/profiles/profilesReducer";
@@ -34,6 +35,10 @@ const App = () => {
   const [counter, setCounter] = useState(0);
   const [paragraph, setParagraph] = useState(true);
   const [lang, setLang] = useState("🇬🇧");
+
+  useEffect(() => {
+    dispatch(apiGetAllProfiles());
+  }, [dispatch]);
 
   const changeCounter = (operation) => {
     setCounter((prevCounter) =>
