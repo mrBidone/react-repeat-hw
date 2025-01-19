@@ -2,10 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { requestSingleProductData } from "../services/api";
 import ModalImage from "../components/ModalImage/ModalImage";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectProductsError,
+  selectProductsIsLoading,
+  selectProductsProductDetails,
+} from "../redux/products/products.selectors";
+import { apiGetProductDetails } from "../redux/products/products.operation";
 
 const ProductDetailsPage = () => {
   const { productId } = useParams();
-  const [productDetails, setProductDetails] = useState(null);
+  // const [productDetails, setProductDetails] = useState(null);
+  const dispatch = useDispatch();
+  const productDetails = useSelector(selectProductsProductDetails);
+  const isLoading = useSelector(selectProductsIsLoading);
+  const error = useSelector(selectProductsError);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalImage, setIsModalImage] = useState("");
   const [modalImageAlt, setIsModalImageAlt] = useState("");
@@ -16,16 +28,9 @@ const ProductDetailsPage = () => {
   const backLinkRef = useRef(location.state?.from ?? "/posts");
 
   useEffect(() => {
-    const fetchSingleProduct = async () => {
-      try {
-        const data = await requestSingleProductData(productId);
-        setProductDetails(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchSingleProduct();
-  }, [productId]);
+    if (!productId) return;
+    dispatch(apiGetProductDetails(productId));
+  }, [productId, dispatch]);
 
   const openModal = (image, title) => {
     setModalIsOpen(true);

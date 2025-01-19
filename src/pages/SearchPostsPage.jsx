@@ -6,47 +6,40 @@ import {
   requestProductsBySearchValue,
 } from "../services/api";
 import SearchProductsForm from "../components/SearchProductsForm/SearchProductsForm";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectProducts,
+  selectProductsError,
+  selectProductsIsLoading,
+} from "../redux/products/products.selectors";
+import {
+  apiGetAllProducts,
+  apiGetProductsByQuery,
+} from "../redux/products/products.operation";
 
 const SearchPostsPage = () => {
-  const [products, setProducts] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(null);
+  const dispatch = useDispatch();
+
+  const products = useSelector(selectProducts);
+  const isLoading = useSelector(selectProductsIsLoading);
+  const isError = useSelector(selectProductsError);
+
   const [searchParams, setSearchParams] = useSearchParams();
   // Отримання обʼєкту місцезнаходження!!!! =========================
   const location = useLocation();
   console.log("location: ", location);
 
-  // 1. Зчитуємо пошуковий параметр з URL-строки
   const queryValue = searchParams.get("query");
 
   useEffect(() => {
-    // 3. підписуємо UseEffect на запит queryValue
-    // if (!queryValue) return;
-    const fetchProductsByValue = async () => {
-      try {
-        setIsLoading(true);
-        if (queryValue) {
-          // 4. Тут так само, робимо запит по queryValue
-          const data = await requestProductsBySearchValue(queryValue);
-          setProducts(data.products);
-        } else {
-          const data = await requestAllProducts();
-          setProducts(data.products);
-        }
-      } catch (error) {
-        console.log(error);
-        setIsError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProductsByValue();
-    // 5. У масив залежностей додаємо queryValue для спостерігання.
-  }, [queryValue]);
+    if (queryValue) {
+      dispatch(apiGetProductsByQuery(queryValue));
+    } else {
+      dispatch(apiGetAllProducts());
+    }
+  }, [queryValue, dispatch]);
 
   const onSearch = (searchTerm) => {
-    // 2. Встановлюємо пошукові параметри по ключу "query"
     setSearchParams({ query: searchTerm });
   };
 
