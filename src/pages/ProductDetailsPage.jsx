@@ -1,13 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
-import { requestSingleProductData } from "../services/api";
+
 import ModalImage from "../components/ModalImage/ModalImage";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectProductsError,
-  selectProductsIsLoading,
-  selectProductsProductDetails,
-} from "../redux/products/products.selectors";
+import { selectProductsProductDetails } from "../redux/products/products.selectors";
 import { apiGetProductDetails } from "../redux/products/products.operation";
 
 const ProductDetailsPage = () => {
@@ -15,8 +11,6 @@ const ProductDetailsPage = () => {
   // const [productDetails, setProductDetails] = useState(null);
   const dispatch = useDispatch();
   const productDetails = useSelector(selectProductsProductDetails);
-  const isLoading = useSelector(selectProductsIsLoading);
-  const error = useSelector(selectProductsError);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalImage, setIsModalImage] = useState("");

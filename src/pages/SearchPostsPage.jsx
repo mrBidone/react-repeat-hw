@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
-import {
-  requestAllProducts,
-  requestProductsBySearchValue,
-} from "../services/api";
+
 import SearchProductsForm from "../components/SearchProductsForm/SearchProductsForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
