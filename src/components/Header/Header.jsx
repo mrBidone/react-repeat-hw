@@ -1,9 +1,9 @@
-import { Suspense } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { Suspense } from "react";
+import { Outlet, NavLink } from "react-router-dom";
 
-import { MdCurrencyExchange } from 'react-icons/md';
+import { MdCurrencyExchange } from "react-icons/md";
 
-import styles from './Header.module.css';
+import styles from "./Header.module.css";
 
 export const Header = () => {
   return (
@@ -37,9 +37,11 @@ export const Header = () => {
           </nav>
         </div>
       </header>
-      <Suspense fallback={null}>
-        <Outlet />
-      </Suspense>
+      <main>
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
+      </main>
     </>
   );
 };
