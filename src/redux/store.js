@@ -1,4 +1,3 @@
-import { createRoot } from "react-dom/client";
 import { configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
