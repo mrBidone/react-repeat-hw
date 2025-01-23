@@ -8,7 +8,7 @@ import { App } from "./App.jsx";
 import "modern-normalize/modern-normalize.css";
 import "./index.css";
 import { Provider } from "react-redux";
-import { persistor, store } from "./redux/store.js";
+import { persistor, store } from "./reduxState/store.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

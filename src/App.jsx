@@ -3,8 +3,8 @@ import { Header } from "./components";
 import { lazy, useEffect } from "react";
 import { getUserInfo } from "service/opencagedataApi";
 import { useDispatch } from "react-redux";
-import { setBaseCurrency } from "./redux/currency/filter/currencySlice";
-import { fetchBaseCurrency } from "./redux/currency/operations";
+import { setBaseCurrency } from "./reduxState/currency/currencySlice";
+import { fetchBaseCurrencyThunk } from "./reduxState/currency/operations";
 
 const Home = lazy(() => import("pages/Home"));
 const Rates = lazy(() => import("pages/Rates"));
@@ -14,7 +14,7 @@ export const App = () => {
 
   useEffect(() => {
     const success = ({ coords }) => {
-      dispatch(fetchBaseCurrency(coords));
+      dispatch(fetchBaseCurrencyThunk(coords));
     };
     const error = () => {
       dispatch(setBaseCurrency("USD"));
